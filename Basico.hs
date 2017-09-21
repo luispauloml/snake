@@ -31,8 +31,8 @@ data Estado = Estado
             , _jogador      :: Snake    -- posicao das partes da cobra
             , _pontuacao    :: Int      -- comprimento da cobra
             , _alvo         :: Fruta    -- posicao da fruta
-            , _direcAtual   :: Direc    -- direcao atual do movimento
-            , _ultimoMove   :: Direc    -- direcao do ultimo movimento
+            , _direcAtual   :: [Direc]    -- direcao atual do movimento
+--            , _ultimoMove   :: Direc    -- direcao do ultimo movimento
             , _semente      :: Int      -- seed para gerar nova posicao da fruta
             } deriving (Eq)
             
@@ -43,8 +43,7 @@ instance Show Estado where
            ++ "jogador = [" ++ show (length (view jogador e)) ++ "] ; "
            ++ "pontuacao = " ++ show (view pontuacao e) ++ " ; "
            ++ "alvo = " ++ show (view alvo e) ++ " ; "
-           ++ "dirs = (" ++ show (view direcAtual e) ++ "," 
-           ++ show (view ultimoMove e) ++ ") ; "
+           ++ "dirs = " ++ show (view direcAtual e) ++ " ; " 
            ++ "t = " ++ show (view semente e) ++ "}"
              
 -- RNG <https://rosettacode.org/wiki/Linear_congruential_generator#Haskell>

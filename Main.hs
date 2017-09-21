@@ -1,5 +1,7 @@
 module Main where
 
+-- Motor principal do jogo
+
 import Control.Lens
 import Data.Maybe
 import Graphics.Gloss
@@ -19,20 +21,19 @@ estadoInicial = Estado
                                   ]
                 , _pontuacao    = 3
                 , _alvo         = (largura `div` 4, 0)
-                , _direcAtual   = Dir
-                , _ultimoMove   = Dir
+                , _direcAtual   = [Dir,Dir]
                 , _semente      = 0
                 } where largura = (fst tamJanela `div` round (fst tamBloco))
                         altura  = (snd tamJanela `div` round (snd tamBloco))
 
--- Motor completo do jogo
+-- Usando Gloss.play como motor
 glossPlay = play
 {-janela-}  (InWindow  "Snake" tamJanela (20, 20))
 {-cor-}     white
 {-fps-}     pont2vel
 {-mundo-}   estadoInicial
 {-render-}  renderizar
-{-evento-}  movimentoJogador
+{-evento-}  atualizaDir
 {-passo-}   atualizaJogo
   where pont2vel = round . (*20) . (/log 10) . log . fromIntegral 
                  $ view pontuacao estadoInicial
@@ -43,16 +44,15 @@ atualizaJogo dt s = (movimentoAuto dt) . (detectParede estadoInicial)
                   . (detectCauda estadoInicial) . detectPonto $ s
 
 
--- Funcao para mover segundo entrada do jogador
-movimentoJogador :: Event -> Estado -> Estado
-movimentoJogador acao mundo = maybe mundo atualiza (lerUsuario acao)
+-- Funcao para atualizar direcao segundo entrada do jogador
+atualizaDir :: Event -> Estado -> Estado
+atualizaDir acao mundo = maybe mundo atualiza (lerUsuario acao)
   where atualiza d = if (validarDir atual d == True) && (validarDir ultim d == True)
-                       then mundo {_direcAtual = d}
+                       then mundo {_direcAtual = [d, atual]}
                        else mundo
-        atual      = view direcAtual mundo
-        ultim      = view ultimoMove mundo
+        atual      = head $        view direcAtual mundo
+        ultim      = head $ tail $ view direcAtual mundo
 
 main :: IO ()
-main = glossPlay
-
+main = do glossPlay
 

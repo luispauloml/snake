@@ -29,12 +29,12 @@ lerUsuario evento = Nothing
     
 -- Atualizar a cobrinha usnado o tempo para atualizar seed da maçã
 movimentoAuto :: Float -> Estado -> Estado
-movimentoAuto dt s = s { _ultimoMove = dir
+movimentoAuto dt s = s { _direcAtual = [dir, dir]
                        , _jogador   = moverSnake dir snake
                        , _semente  = seed + round (1000 * dt) }
-  where dir   = view direcAtual s
-        snake = view jogador    s
-        seed  = view semente    s
+  where dir   = head $ view direcAtual s
+        snake =        view jogador    s
+        seed  =        view semente    s
   
 -- A cobra come a fruta
 detectPonto :: Estado -> Estado
