@@ -1,2 +1,2 @@
 # snake
-Jogo "snake" feito como forma de praticar Haskell
+Jogo "snake" feito como forma de praticar Haskell.
