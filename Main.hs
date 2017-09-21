@@ -34,12 +34,13 @@ glossPlay = play
 {-render-}  renderizar
 {-evento-}  movimentoJogador
 {-passo-}   atualizaJogo
-  where pont2vel = round . (*20) . (/log 10) . log . fromIntegral $ view pontuacao estadoInicial
+  where pont2vel = round . (*20) . (/log 10) . log . fromIntegral 
+                 $ view pontuacao estadoInicial
 
 -- Atualizar estado do jogo
 atualizaJogo :: Float -> Estado -> Estado
-atualizaJogo dt s = (movimentoAuto dt) . detectParede 
-                   . detectCauda . detectPonto $ s
+atualizaJogo dt s = (movimentoAuto dt) . (detectParede estadoInicial)
+                  . (detectCauda estadoInicial) . detectPonto $ s
 
 
 -- Funcao para mover segundo entrada do jogador

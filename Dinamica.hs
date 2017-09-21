@@ -64,28 +64,40 @@ novoAlvo estado = worker (fruta', seed') estado
         altura   = (snd tamJanela `div` round (snd tamBloco)) - 2
 
 -- Toca a parede
-detectParede :: Estado -> Estado
-detectParede s
+detectParede :: Estado -> Estado -> Estado
+detectParede s0 s
     | (abs . fst . head $ snake) == (abs . fst . head $ area) ||
       (abs . snd . head $ snake) == (abs . snd . head $ area)  = s'
     | otherwise = s
       where snake = view jogador    s
             area  = view quadro     s
             dir   = view direcAtual s
-            s'    = gameOver s 
+            s'    = gameOver s s0
 
 -- Toca a pórpria cauda
-detectCauda :: Estado -> Estado
-detectCauda s
+detectCauda :: Estado -> Estado -> Estado
+detectCauda s0 s
     | elem cabeca (tail snake) == True = s'
     | otherwise                        = s
   where snake  = view jogador s
         cabeca = head snake
-        s'     = gameOver s
+        s'     = gameOver s s0
 
 
 -- Ação quando gameover
-gameOver :: Estado -> Estado
-gameOver s = s { _jogador = reverse snake , _direcAtual = invDir dir }
-  where snake = view jogador    s
-        dir   = view direcAtual s
+gameOver :: Estado -> Estado -> Estado
+gameOver s s0 = s { _jogador = snake
+                  , _direcAtual = dir
+                  , _alvo = fruta
+                  , _pontuacao = pontos }
+  where snake = view jogador    s0
+        dir   = view direcAtual s0
+        fruta = view alvo       s0
+        pontos= view pontuacao  s0
+        
+        
+        
+        
+        
+        
+        
