@@ -54,15 +54,15 @@ detectPonto s
 -- Calcula nova posição da maçã
 novoAlvo :: Estado -> (Fruta, Int)
 novoAlvo estado = worker (fruta', seed') estado
-  where worker (f, s) e
-            | elem f (view jogador e) == True = novoAlvo $ e { _semente = s }
-            | otherwise                       = (f, s)
-        seed'    = msr_rng $ view semente estado
+  where seed'    = msr_rng $ view semente estado
         fruta'   = ( mod seed' largura - (largura `div` 2)
                    , mod seed' altura  - (altura  `div` 2) )
         largura  = (fst tamJanela `div` round (fst tamBloco)) - 2
         altura   = (snd tamJanela `div` round (snd tamBloco)) - 2
-
+        worker (f, s) e
+            | elem f (view jogador e) == True = novoAlvo $ e { _semente = s }
+            | otherwise                       = (f, s)
+        
 -- Toca a parede
 detectParede :: Estado -> Estado -> Estado
 detectParede s0 s
@@ -71,7 +71,6 @@ detectParede s0 s
     | otherwise = s
       where snake = view jogador    s
             area  = view quadro     s
-            dir   = view direcAtual s
             s'    = gameOver s s0
 
 -- Toca a pórpria cauda
