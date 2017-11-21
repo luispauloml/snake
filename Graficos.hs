@@ -1,6 +1,5 @@
 module Graficos where
 
-import Control.Lens
 import Graphics.Gloss
 
 import Basico
@@ -22,15 +21,15 @@ bloco (x,y) = translate (fromIntegral x * fst tamBloco)
 
 -- Desenha conjunto de blocos que compoem a cobra
 desenharCobra :: Estado -> [Picture]
-desenharCobra s = map (Color green) $ map bloco $ view jogador s
+desenharCobra s = map (Color green) $ map bloco $ _jogador s
 
 -- Desenha conjunto de blocos que definem o espaço do jogo
 desenharQuadro :: Estado -> [Picture]
-desenharQuadro s = map bloco $ view quadro s
+desenharQuadro s = map bloco $ _quadro s
 
 -- Desenha um único bloco que representa a fruta
 desenharFruta :: Estado -> [Picture]
-desenharFruta s = [Color red $ bloco $ view alvo s]
+desenharFruta s = [Color red $ bloco $ _alvo s]
 
 -- Renderiza todo o plano do jogo
 renderizar estado = pictures $ concat $ map ($estado) [ desenharCobra

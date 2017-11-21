@@ -2,7 +2,6 @@ module Main where
 
 -- Motor principal do jogo
 
-import Control.Lens
 import Data.Maybe
 import Graphics.Gloss
 import Graphics.Gloss.Interface.Pure.Game
@@ -36,7 +35,7 @@ glossPlay = play
 {-evento-}  atualizaDir
 {-passo-}   atualizaJogo
   where pont2vel = round . (*20) . (/log 10) . log . fromIntegral 
-                 $ view pontuacao estadoInicial
+                 $ _pontuacao estadoInicial
 
 -- Atualizar estado do jogo
 atualizaJogo :: Float -> Estado -> Estado
@@ -50,9 +49,9 @@ atualizaDir acao mundo = maybe mundo atualiza (lerUsuario acao)
   where atualiza d = if (validarDir atual d == True) && (validarDir ultim d == True)
                        then mundo {_direcAtual = [d, atual]}
                        else mundo
-        atual      = head $        view direcAtual mundo
-        ultim      = head $ tail $ view direcAtual mundo
+        atual      = head $        _direcAtual mundo
+        ultim      = head $ tail $ _direcAtual mundo
 
 main :: IO ()
-main = do glossPlay
+main = glossPlay
 

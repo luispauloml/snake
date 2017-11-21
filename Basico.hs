@@ -1,8 +1,4 @@
-{-# LANGUAGE TemplateHaskell #-}
-
 module Basico where
-
-import Control.Lens
 
 type Ponto = (Int, Int) -- unidade basica do jogo
 type Snake = [Ponto]    -- para armazenar os pontos da cobra
@@ -32,19 +28,16 @@ data Estado = Estado
             , _pontuacao    :: Int      -- comprimento da cobra
             , _alvo         :: Fruta    -- posicao da fruta
             , _direcAtual   :: [Direc]    -- direcao atual do movimento
---            , _ultimoMove   :: Direc    -- direcao do ultimo movimento
             , _semente      :: Int      -- seed para gerar nova posicao da fruta
             } deriving (Eq)
             
-makeLenses ''Estado
-            
 instance Show Estado where
-    show e = "{quadro = [" ++ show (length (view quadro e)) ++ "] ; "
-           ++ "jogador = [" ++ show (length (view jogador e)) ++ "] ; "
-           ++ "pontuacao = " ++ show (view pontuacao e) ++ " ; "
-           ++ "alvo = " ++ show (view alvo e) ++ " ; "
-           ++ "dirs = " ++ show (view direcAtual e) ++ " ; " 
-           ++ "t = " ++ show (view semente e) ++ "}"
+    show e = "{quadro = [" ++ show (length (_quadro e)) ++ "] ; "
+           ++ "jogador = [" ++ show (length (_jogador e)) ++ "] ; "
+           ++ "pontuacao = " ++ show (_pontuacao e) ++ " ; "
+           ++ "alvo = " ++ show (_alvo e) ++ " ; "
+           ++ "dirs = " ++ show (_direcAtual e) ++ " ; " 
+           ++ "t = " ++ show (_semente e) ++ "}"
              
 -- RNG <https://rosettacode.org/wiki/Linear_congruential_generator#Haskell>
 msr_rng :: Int -> Int
