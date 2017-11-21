@@ -54,4 +54,3 @@ atualizaDir acao mundo = maybe mundo atualiza (lerUsuario acao)
 
 main :: IO ()
 main = glossPlay
-

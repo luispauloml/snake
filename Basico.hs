@@ -2,7 +2,7 @@ module Basico where
 
 type Ponto = (Int, Int) -- unidade basica do jogo
 type Snake = [Ponto]    -- para armazenar os pontos da cobra
-type Fruta = Ponto      -- dado da posicao do alvo (a fruta, ou maca)
+type Fruta = Ponto      -- dado da posicao do alvo (a fruta)
 
 --  Para facilatar lidar com direcoes de movimento
 data Direc = Cima | Baixo | Esq | Dir deriving (Show, Eq, Enum)

@@ -92,10 +92,3 @@ gameOver s s0 = s { _jogador = snake
         dir   = _direcAtual s0
         fruta = _alvo       s0
         pontos= _pontuacao  s0
-        
-        
-        
-        
-        
-        
-        
