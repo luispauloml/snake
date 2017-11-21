@@ -19,6 +19,6 @@ executable snake
   main-is:             Main.hs
   other-modules:       Dinamica, Basico, Graficos
   -- other-extensions:    
-  build-depends:       base >=4.9 && <4.10, lens, gloss
+  build-depends:       base >=4.9 && <4.10, gloss
   -- hs-source-dirs:      
   default-language:    Haskell2010
